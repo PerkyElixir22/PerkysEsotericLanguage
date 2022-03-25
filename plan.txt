@@ -1,0 +1,43 @@
+instructions:
+    0 ( ) : increment register
+    1 (!) : decrement register
+    2 (") : add register to register
+    3 (#) : sub register from register
+    4 ($) : double register
+    5 (%) : halve register
+    6 (&) : multiply register with register
+    7 (') : divide register with register
+    8 (() : copy register to register
+    9 ()) : swap register with register
+    10(*) : print register as UTF-16 to stdout
+    11(+) : read stdin as UTF-16 to register
+    12(,) : print register as ASCII to stdout
+    13(-) : read stdin as ASCII to register
+    14(.) : Start loop while register is not 0
+    15(/) : End loop if register is 0
+    16(0) : Store register in memory
+    17(1) : Load register from memory
+    18(2) : Bitwise AND register with register
+    19(3) : Bitwise OR register with register
+    20(4) : Bitwise NOT register
+    21(5) : Bitwise NEG register
+    22(6) : Print register as signed number
+    23(7) : Print register as unsigned number
+    24(8) : Start loop while register is 0
+    25(9) : End loop if regsiter is not 0
+    26(:) : Bitwise NAND register with register
+    27(;) : Bitwise XOR register with register
+    28(<) : Jump to position
+    29(=) : Jump to position if register is 0
+    30(>) : Call subrutine
+    31(?) : Return from subrutine
+note:
+    instructions are an ascii character value subtracted by 32
+    registers are an ascii character value subtracted by 32
+    numbers are an ascii character value subtracted by 32
+    everything that isnt within the 32=>63 range are comments
+    numbers are hexadecimal
+    32 instructions
+    16 registers
+    16 numbers
+    65536 memory cells
