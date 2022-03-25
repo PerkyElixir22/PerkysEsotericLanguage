@@ -32,12 +32,12 @@ instructions:
     30(>) : Call subrutine
     31(?) : Return from subrutine
 note:
-    instructions are an ascii character value subtracted by 32
-    registers are an ascii character value subtracted by 32
-    numbers are an ascii character value subtracted by 32
-    everything that isnt within the 32=>63 range are comments
-    numbers are hexadecimal
-    32 instructions
-    16 registers
-    16 numbers
+    Source code is made from ASCII values that are subtraced by 32 internally
+    
+    32 instructions ( !"#$%&'()*+,-./0123456789:;<=>?)
+    16 registers    ( !"#$%&'()*+,-./)
+    16 numbers      ( !"#$%&'()*+,-./)
+
+    Numbers are interpreted as hexadecimal
+
     65536 memory cells
