@@ -55,88 +55,80 @@ int main(const int pArgCount, const char* pArgVector[]) {
 
 	try {
 		while(lCodePointer < lCodeSize) {
-			//std::cout << std::hex << std::setfill('0') << std::setw(4) << lCodePointer << " : " << std::dec << std::setw(0) << std::setfill(' ');
+			uint16_t lRegVal;
+			size_t lAddress;
 			switch(lCode[lCodePointer]) {
 			case ' ':
-				//std::cout << "ADD " << lCode[lCodePointer+1] << ", " << lCode[lCodePointer+2] << "\n";
 				lRegister[charToReg(lCode[lCodePointer+1])] += lRegister[charToReg(lCode[lCodePointer+2])];
 				lCodePointer += 3;
 				break;
 			case '!':
-				//std::cout << "SUB " << lCode[lCodePointer+1] << ", " << lCode[lCodePointer+2] << "\n";
 				lRegister[charToReg(lCode[lCodePointer+1])] -= lRegister[charToReg(lCode[lCodePointer+2])];
 				lCodePointer += 3;
 				break;
 			case '"':
-				//std::cout << "TEST " << lCode[lCodePointer+1] << "\n";
 				lIsZero = lRegister[charToReg(lCode[lCodePointer+1])] == 0;
 				lCodePointer += 2;
 				break;
 			case '#':
-				//std::cout << "JNZ " << +static_cast<int8_t>(getImmediate8(lCode, lCodePointer+1)) << "\n";
 				if(!lIsZero)
 					lCodePointer += static_cast<int8_t>(getImmediate8(lCode, lCodePointer+1));
 				else
 					lCodePointer += 3;
 				break;
 			case '$':
-				//std::cout << "LOAD " << lCode[lCodePointer+1] << ", " << (lCodePointer + static_cast<int8_t>(getImmediate8(lCode, lCodePointer+2))+lRegister[7]) << "\n";
 				lRegister[charToReg(lCode[lCodePointer+1])] = getImmediate16(lCode, lCodePointer + static_cast<int8_t>(getImmediate8(lCode, lCodePointer+2)) + lRegister[7]);
 				lCodePointer += 4;
 				break;
 			case '%':
-				// This doesn't work yet!
-				//std::cout << "STORE rl8 r\n";
-				lCode[lCodePointer + static_cast<int8_t>(getImmediate8(lCode, lCodePointer+1))] = lRegister[charToReg(lCode[lCodePointer+3])];
+				lRegVal = lRegister[charToReg(lCode[lCodePointer+3])];
+				lAddress = lCodePointer + static_cast<int8_t>(getImmediate8(lCode, lCodePointer+1) + lRegister[7]);
+
+				lCode[lAddress + 0] = ((lRegVal & 0x00F0) >>  4) + ' ';
+				lCode[lAddress + 1] = ((lRegVal & 0x000F) >>  0) + ' ';
+
+				lCode[lAddress + 2] = ((lRegVal & 0xF000) >> 12) + ' ';
+				lCode[lAddress + 3] = ((lRegVal & 0x0F00) >>  8) + ' ';
+
 				lCodePointer += 4;
-				throw std::runtime_error("STORE is not implemented.");
+
 				break;
 			case '&':
-				//std::cout << "INC " << lCode[lCodePointer+1] << "\n";
 				++lRegister[charToReg(lCode[lCodePointer+1])];
 				lCodePointer += 2;
 				break;
 			case '\'':
-				//std::cout << "DEC " << lCode[lCodePointer+1] << "\n";
 				--lRegister[charToReg(lCode[lCodePointer+1])];
 				lCodePointer += 2;
 				break;
 			case '(':
-				//std::cout << "PRINT " << lCode[lCodePointer+1] << "\n";
 				std::cout.put(lRegister[charToReg(lCode[lCodePointer+1])] & 0x00FF);
 				lCodePointer += 2;
 				break;
 			case ')':
-				//std::cout << "READ " << lCode[lCodePointer+1] << "\n";
 				std::cin.read(reinterpret_cast<char*>(&lRegister[charToReg(lCode[lCodePointer+1])]), 1);
 				lCodePointer += 2;
 				break;
 			case '*':
-				//std::cout << "JMP " << +static_cast<int8_t>(getImmediate8(lCode, lCodePointer+1)) << "\n";
 				lCodePointer += static_cast<int8_t>(getImmediate8(lCode, lCodePointer+1));
 				break;
 			case '+':
-				//std::cout << "COPY " << lCode[lCodePointer+1] << ", " << lCode[lCodePointer+2] << "\n";
 				lRegister[charToReg(lCode[lCodePointer+1])] = lRegister[charToReg(lCode[lCodePointer+2])];
 				lCodePointer += 3;
 				break;
 			case ',':
-				//std::cout << "ZERO " << lCode[lCodePointer+1] << "\n";
 				lRegister[charToReg(lCode[lCodePointer+1])] = 0;
 				lCodePointer += 2;
 				break;
 			case '-':
-				//std::cout << "ANDLB " << lCode[lCodePointer+1] << "\n";
 				lRegister[charToReg(lCode[lCodePointer+1])] &= 0x00FF;
 				lCodePointer += 2;
 				break;
 			case '.':	
-				//std::cout << "LOAD " << lCode[lCodePointer+1] << ", " << +(getImmediate8(lCode, lCodePointer+1) & 0x0F) << "\n";
 				lRegister[charToReg(lCode[lCodePointer+1])] = getImmediate8(lCode, lCodePointer+1) & 0x0F;
 				lCodePointer += 3;
 				break;
 			case '/':
-				//std::cout << "EXIT\n";
 				lCodePointer = lCodeSize;
 				break;
 			default:

@@ -1,18 +1,19 @@
 main:
-    load bx, 0x2
-    zero VO
+    load bx, 0x2  ; Set BX to 2
+    zero VO       ; Set Variable Offset to 0
 .loop:
-    load AX, text
-    andlb AX
-    test AX
-    jnz ..notnull
-    exit
+    load AX, text ; Load next character into AX
+    andlb AX      ; AND AX with 0x00FF
+    test AX       ; Check if AX is NULL
+    jnz ..notnull ; Jump if character is not NULL
+    exit          ; Exit if character is NULL
 ..notnull:
-    print AX
-    add VO, BX
-    jmp .loop
+    print AX      ; Print character
+    add VO, BX    ; Add 2 to Variable Offset
+    jmp .loop     ; Jump to start of loop
 
-text:
+text: 
+; Note : one def8 takes 2 bytes and one def16 takes 4 bytes
     def8 0x48 ; H
     def8 0x65 ; e
     def8 0x6C ; l
