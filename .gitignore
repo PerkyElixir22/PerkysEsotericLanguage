@@ -22,13 +22,3 @@
 *.exe
 *.out
 *.app
-
-####################
-## Perkys options ##
-####################
-
-# Directories
-/build/
-
-# Files
-.bin
