@@ -1,7 +1,0 @@
-#!/bin/bash
-
-for FILE in ./build/tests/*
-do 
-    echo $FILE
-    ./build/interpreter/esolang $FILE
-done
