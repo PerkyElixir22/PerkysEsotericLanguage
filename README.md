@@ -24,14 +24,14 @@ ${reg}{rel} : Loads value at code pointer + 8 bit signed offset into register
 / : Exits program  
 
 ## Registers
-R0/AX : 16 bit general purpose register  
-R1/BX : 16 bit general purpose register  
-R2/CX : 16 bit general purpose register  
-R3/DX : 16 bit general purpose register  
-R4/?? : 16 bit general purpose register  
-R5/?? : 16 bit general purpose register  
-R6/JO : 16 bit jump offset register (offsets JNE/JMP)  
-R7/VO : 16 bit variable offset register (offsets Load/Store)  
+< : 16 bit general purpose register  
+> : 16 bit general purpose register  
+~ : 16 bit general purpose register  
+^ : 16 bit general purpose register  
+? : 16 bit general purpose register  
+@ : 16 bit general purpose register  
+= : 16 bit jump offset register (offsets JNE/JMP)  
+| : 16 bit variable offset register (offsets Load/Store)  
 
 ## Numbers
 0 : <space>  
