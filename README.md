@@ -8,7 +8,7 @@ This is an esoteric programming language made by PerkyElixir22
 ## Instructions
 <space>{reg}{reg} : Adds value second register to first register  
 !{reg}{reg} : Subtracts value of second register from first register  
-"{reg} : Checks if register is 0
+"{reg} : Checks if register is 0  
 #{rel} : Jumps to code pointer + 8 bit signed offset if register is not 0  
 ${reg}{rel} : Loads value at code pointer + 8 bit signed offset into register  
 %{rel}{reg} : Stores value in register into code pointer + 8 bit signed offset  
