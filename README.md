@@ -25,7 +25,7 @@ ${reg}{rel} : Loads value at code pointer + 8 bit signed offset into register
 
 ## Registers
 < : 16 bit general purpose register  
-> : 16 bit general purpose register  
+\> : 16 bit general purpose register  
 ~ : 16 bit general purpose register  
 ^ : 16 bit general purpose register  
 ? : 16 bit general purpose register  
